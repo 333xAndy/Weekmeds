@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//TODO add more to the stack, then create setttings, then connect to main view
+//Create Settins page, upload to firebase, display on View Page
 
 
 struct Medication: Identifiable{
@@ -18,8 +18,7 @@ struct Medication: Identifiable{
     var method:String
     var time:String
     var pharmacyPhone: String
-    var refillReminder: Date //not sure if this is a string but check on that
-    //also add a way to upload prescription to app
+    var refillReminder: Date 
 }
 
 struct ContentView: View {
@@ -57,10 +56,42 @@ struct DetailAddView : View{
     @State private var date = Date()
     var body: some View{
         VStack{
-            Text("Presciption Name").font(.title3)
+            HStack{
+                Text("Presciption Name").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                Text("Strength (mg/ml)").font(.title3).frame(maxWidth: .infinity, alignment: .center)
+            }
             HStack{
                 Image(systemName: "pills.circle")
-                TextField("Enter..",text:$nme)
+                TextField("Name..",text:$nme)
+                TextField("Strength..",text: $strnth).keyboardType(.numberPad)
+                Spacer()
+            }
+            Text("Drug Instructions").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+            HStack{
+                Image(systemName:"pencil.circle")
+                TextField("Amount",text:$amnt)
+                TextField("Method",text:$mthod)
+                TextField("Daily/Weekly/Etc,",text:$tme)
+                Spacer()
+            }
+            Text("Pharmacy Phone").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+            HStack{
+                Image(systemName: "phone.circle")
+                TextField("Phone #",text: $pharmPhone).keyboardType(.numberPad)
+            }
+            Text("Refill date").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+            HStack{
+                Image(systemName: "calendar.circle")
+                DatePicker(selection: $date, displayedComponents: .date){
+                    Text("Select a date")
+                }
+            }
+            Text("Upload your prescription").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+            HStack{
+                Image(systemName: "camera.circle")
+                Button("Upload image.."){
+                    
+                }
             }
 
         }.frame(maxWidth: .infinity,
