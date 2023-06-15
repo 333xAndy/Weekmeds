@@ -21,7 +21,14 @@ struct Medication: Identifiable{
     var refillReminder: Date 
 }
 
+class MedicationViewModel: ObservableObject{
+    @Published var meds = [Medication]()
+}
+
 struct ContentView: View {
+    
+    @StateObject var viewModel = MedicationViewModel()
+    
     var body: some View {
         NavigationView {
             VStack{
@@ -33,19 +40,17 @@ struct ContentView: View {
                             }
                         }
                         ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination: DetailSettingsView()) {
+                            NavigationLink(destination: DetailSettingsView()){
                                 Text("Settings")
                             }
                         }
-                    }
-                //Medication List view goes here
+                }
             }
         }
     }
 }
 
 
-//Details look small so make sure to fixt that
 struct DetailAddView : View{
     @State private var nme: String=""
     @State private var strnth: String=""
@@ -74,29 +79,42 @@ struct DetailAddView : View{
                 TextField("Daily/Weekly/Etc,",text:$tme)
                 Spacer()
             }
-            Text("Pharmacy Phone").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             HStack{
                 Image(systemName: "phone.circle")
+                Text("Pharmacy Phone").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
                 TextField("Phone #",text: $pharmPhone).keyboardType(.numberPad)
             }
-            Text("Refill date").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             HStack{
                 Image(systemName: "calendar.circle")
-                DatePicker(selection: $date, displayedComponents: .date){
-                    Text("Select a date")
-                }
+                Text("Refill date").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                DatePicker(selection: $date, displayedComponents: .date){}
             }
-            Text("Upload your prescription").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             HStack{
                 Image(systemName: "camera.circle")
+                Text("Upload your prescription").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
                 Button("Upload image.."){
-                    
                 }
             }
-
+            HStack{
+                Button(action: self.tryToAddToList){
+                    Text("Add to list").bold().frame(width: 250, height: 50, alignment: .center).cornerRadius(8).background(Color.green).foregroundColor(Color.white)
+                }
+            }
+            
+            
         }.frame(maxWidth: .infinity,
                 maxHeight: .infinity,
                 alignment: .topLeading).navigationTitle(Text("Add")).navigationBarTitleDisplayMode(.inline)
+    }
+    
+    func tryToAddToList(){
+        guard !nme.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
+        
+        let newMed = Medication(name:nme, strength: strnth, amount: amnt, method: mthod,
+                                time: tme, pharmacyPhone: pharmPhone, refillReminder: date)
+        //append to view model here
     }
 }
 

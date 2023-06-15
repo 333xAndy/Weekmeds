@@ -15,7 +15,7 @@
 
 /* Begin PBXFileReference section */
 		A18EAE4B2A2F9404009E2961 /* Xcode - Weekmeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Xcode - Weekmeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A18EAE4E2A2F9404009E2961 /* Xcode___WeekmedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Xcode___WeekmedsApp.swift"; sourceTree = "<group>"; };
+		A18EAE4E2A2F9404009E2961 /* Xcode___WeekmedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcode___WeekmedsApp.swift; sourceTree = "<group>"; };
 		A18EAE502A2F9404009E2961 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A18EAE522A2F9404009E2961 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A18EAE552A2F9404009E2961 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
