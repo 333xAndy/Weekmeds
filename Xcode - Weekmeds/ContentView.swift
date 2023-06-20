@@ -1,14 +1,6 @@
-//
-//  ContentView.swift
-//  Xcode - Weekmeds
-//
-//  Created by Andy De Leon on 6/6/23.
-//
-
 import SwiftUI
 
 //Create Settins page, upload to firebase, display on View Page
-
 
 struct Medication: Identifiable{
     var id = UUID()
@@ -70,7 +62,7 @@ struct DetailAddView : View{
                 TextField("Name..",text:$nme)
                 TextField("Strength..",text: $strnth).keyboardType(.numberPad)
                 Spacer()
-            }
+            }.padding()
             Text("Drug Instructions").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
             HStack{
                 Image(systemName:"pencil.circle")
@@ -78,23 +70,23 @@ struct DetailAddView : View{
                 TextField("Method",text:$mthod)
                 TextField("Daily/Weekly/Etc,",text:$tme)
                 Spacer()
-            }
+            }.padding()
             HStack{
                 Image(systemName: "phone.circle")
                 Text("Pharmacy Phone").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
                 TextField("Phone #",text: $pharmPhone).keyboardType(.numberPad)
-            }
+            }.padding()
             HStack{
                 Image(systemName: "calendar.circle")
                 Text("Refill date").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
                 DatePicker(selection: $date, displayedComponents: .date){}
-            }
+            }.padding()
             HStack{
                 Image(systemName: "camera.circle")
                 Text("Upload your prescription").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
                 Button("Upload image.."){
                 }
-            }
+            }.padding()
             HStack{
                 Button(action: self.tryToAddToList){
                     Text("Add to list").bold().frame(width: 250, height: 50, alignment: .center).cornerRadius(8).background(Color.green).foregroundColor(Color.white)
@@ -111,16 +103,32 @@ struct DetailAddView : View{
         guard !nme.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
-        
-        let newMed = Medication(name:nme, strength: strnth, amount: amnt, method: mthod,
-                                time: tme, pharmacyPhone: pharmPhone, refillReminder: date)
         //append to view model here
     }
 }
 
+//connect these to actual functions
 struct DetailSettingsView : View{
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    @State private var fontSize:Int=16
+    @State private var fireStore = false
+    let fontSelect = [16, 24, 32, 48]
     var body: some View{
-        Text("Hello from S")
+        NavigationView{
+            Form{
+                Section(header:Text("Display")){
+                    Toggle("Dark Mode", isOn: $isDarkMode)
+                    Picker("Font Size", selection: $fontSize){
+                        ForEach(fontSelect, id: \.self){
+                            Text("\($0)")
+                        }
+                    }.pickerStyle(.menu)
+                }
+                Section(header:Text("Privacy"), footer:Text("When turned on, images will be stored on Google Firebase. Select off to store in camera roll")){
+                    Toggle("Google Firebase", isOn: $fireStore)
+                }
+            }
+        }.navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
 }
 
