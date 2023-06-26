@@ -11,14 +11,17 @@
 		A18EAE512A2F9404009E2961 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18EAE502A2F9404009E2961 /* ContentView.swift */; };
 		A18EAE532A2F9404009E2961 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A18EAE522A2F9404009E2961 /* Assets.xcassets */; };
 		A18EAE562A2F9404009E2961 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A18EAE552A2F9404009E2961 /* Preview Assets.xcassets */; };
+		A1DE4ACF2A49FDDC008C12D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1DE4ACE2A49FDDC008C12D7 /* GoogleService-Info.plist */; };
+		A1DE4AD22A49FEF8008C12D7 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = A1DE4AD12A49FEF8008C12D7 /* FirebaseAnalytics */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A18EAE4B2A2F9404009E2961 /* Xcode - Weekmeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Xcode - Weekmeds.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A18EAE4E2A2F9404009E2961 /* Xcode___WeekmedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Xcode___WeekmedsApp.swift; sourceTree = "<group>"; };
+		A18EAE4E2A2F9404009E2961 /* Xcode___WeekmedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Xcode___WeekmedsApp.swift"; sourceTree = "<group>"; };
 		A18EAE502A2F9404009E2961 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A18EAE522A2F9404009E2961 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A18EAE552A2F9404009E2961 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A1DE4ACE2A49FDDC008C12D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1DE4AD22A49FEF8008C12D7 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +58,7 @@
 				A18EAE4E2A2F9404009E2961 /* Xcode___WeekmedsApp.swift */,
 				A18EAE502A2F9404009E2961 /* ContentView.swift */,
 				A18EAE522A2F9404009E2961 /* Assets.xcassets */,
+				A1DE4ACE2A49FDDC008C12D7 /* GoogleService-Info.plist */,
 				A18EAE542A2F9404009E2961 /* Preview Content */,
 			);
 			path = "Xcode - Weekmeds";
@@ -83,6 +88,9 @@
 			dependencies = (
 			);
 			name = "Xcode - Weekmeds";
+			packageProductDependencies = (
+				A1DE4AD12A49FEF8008C12D7 /* FirebaseAnalytics */,
+			);
 			productName = "Xcode - Weekmeds";
 			productReference = A18EAE4B2A2F9404009E2961 /* Xcode - Weekmeds.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +119,9 @@
 				Base,
 			);
 			mainGroup = A18EAE422A2F9404009E2961;
+			packageReferences = (
+				A1DE4AD02A49FEF8008C12D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = A18EAE4C2A2F9404009E2961 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -127,6 +138,7 @@
 			files = (
 				A18EAE562A2F9404009E2961 /* Preview Assets.xcassets in Resources */,
 				A18EAE532A2F9404009E2961 /* Assets.xcassets in Resources */,
+				A1DE4ACF2A49FDDC008C12D7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +281,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Xcode - Weekmeds/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -298,6 +311,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Xcode - Weekmeds/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera permission";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -339,6 +353,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A1DE4AD02A49FEF8008C12D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A1DE4AD12A49FEF8008C12D7 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1DE4AD02A49FEF8008C12D7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A18EAE432A2F9404009E2961 /* Project object */;
 }

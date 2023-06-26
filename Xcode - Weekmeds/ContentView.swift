@@ -1,6 +1,8 @@
 import SwiftUI
+import Firebase
 
-//Create Settins page, upload to firebase, display on View Page
+
+//firebase config
 
 struct Medication: Identifiable{
     var id = UUID()
@@ -14,7 +16,7 @@ struct Medication: Identifiable{
 }
 
 class MedicationViewModel: ObservableObject{
-    @Published var meds = [Medication]()
+    @Published var meds: [Medication] = []
 }
 
 struct ContentView: View {
@@ -24,10 +26,10 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack{
-                Text("Add your prescription..").navigationTitle("Home").navigationBarTitleDisplayMode(.inline)
+                Text("Add your prescription").navigationTitle("Home").navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            NavigationLink(destination: DetailAddView()) {
+                            NavigationLink(destination: DetailAddView().environmentObject(viewModel)) {
                                 Text("Add")
                             }
                         }
@@ -37,11 +39,26 @@ struct ContentView: View {
                             }
                         }
                 }
+                ListView().environmentObject(viewModel)
             }
+            
         }
     }
 }
 
+struct ListView: View{
+    @EnvironmentObject var model: MedicationViewModel
+    var body: some View{
+        List{
+            ForEach(model.meds){med in
+                HStack{
+                    Text(med.name).font(.title2)
+                    Text(med.strength).font(.title3)
+                }
+            }
+        }
+    }
+}
 
 struct DetailAddView : View{
     @State private var nme: String=""
@@ -51,6 +68,8 @@ struct DetailAddView : View{
     @State private var tme: String=""
     @State private var pharmPhone: String=""
     @State private var date = Date()
+    @EnvironmentObject var medData : MedicationViewModel
+    
     var body: some View{
         VStack{
             HStack{
@@ -84,11 +103,10 @@ struct DetailAddView : View{
             HStack{
                 Image(systemName: "camera.circle")
                 Text("Upload your prescription").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
-                Button("Upload image.."){
-                }
+                
             }.padding()
             HStack{
-                Button(action: self.tryToAddToList){
+                Button(action: tryToAddToList){
                     Text("Add to list").bold().frame(width: 250, height: 50, alignment: .center).cornerRadius(8).background(Color.green).foregroundColor(Color.white)
                 }
             }
@@ -100,14 +118,17 @@ struct DetailAddView : View{
     }
     
     func tryToAddToList(){
+        
         guard !nme.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
-        //append to view model here
+        
+        let newObj = Medication(name: nme, strength: strnth, amount: amnt, method: mthod, time: tme, pharmacyPhone: pharmPhone, refillReminder: date)
+        medData.meds.append(newObj)
     }
+    
 }
 
-//connect these to actual functions
 struct DetailSettingsView : View{
     @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var fontSize:Int=16
@@ -124,7 +145,7 @@ struct DetailSettingsView : View{
                         }
                     }.pickerStyle(.menu)
                 }
-                Section(header:Text("Privacy"), footer:Text("When turned on, images will be stored on Google Firebase. Select off to store in camera roll")){
+                Section(header:Text("Privacy"), footer:Text("Turning on allows images to be uploaded to Google Firebase. Off by default")){
                     Toggle("Google Firebase", isOn: $fireStore)
                 }
             }
