@@ -1,9 +1,6 @@
 import SwiftUI
 import Firebase
 
-
-//firebase config
-
 struct Medication: Identifiable{
     var id = UUID()
     var name:String
@@ -51,9 +48,21 @@ struct ListView: View{
     var body: some View{
         List{
             ForEach(model.meds){med in
-                HStack{
-                    Text(med.name).font(.title2)
-                    Text(med.strength).font(.title3)
+                VStack{
+                    HStack{
+                        Text(med.name).frame(width:.infinity,alignment: .leading)
+                        Text(med.strength).frame(width: .infinity,alignment: .trailing)
+                        Spacer()
+                    }
+                    Spacer()
+                    HStack{
+                        Text(med.amount)
+                        Text(med.method)
+                        Text(med.time)
+                        Spacer()
+                        Text("Refill")
+                        Text(med.refillReminder, style: .date)
+                    }
                 }
             }
         }
@@ -68,6 +77,7 @@ struct DetailAddView : View{
     @State private var tme: String=""
     @State private var pharmPhone: String=""
     @State private var date = Date()
+    @State private var showView = false
     @EnvironmentObject var medData : MedicationViewModel
     
     var body: some View{
@@ -102,7 +112,20 @@ struct DetailAddView : View{
             }.padding()
             HStack{
                 Image(systemName: "camera.circle")
-                Text("Upload your prescription").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                Text("Upload to Google Firebase").font(.title3).frame(maxWidth: .infinity, alignment: .leading)
+                ZStack{
+                    Button(action: {
+                        self.showView = true
+                    }){
+                        Image(systemName: "info.circle")
+                    }
+                    if showView{
+                        InformationView()
+                    }
+                }
+                Button(action: uploadFirebase){
+                    Text("Upload")
+                }.buttonStyle(.bordered)
                 
             }.padding()
             HStack{
@@ -127,6 +150,9 @@ struct DetailAddView : View{
         medData.meds.append(newObj)
     }
     
+    func uploadFirebase(){
+        
+    }
 }
 
 struct DetailSettingsView : View{
@@ -159,3 +185,8 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
+struct InformationView: View{
+    var body: some View{
+        Text("Google Firebase is a cloud storage system. Images are encrypted.")
+    }
+}

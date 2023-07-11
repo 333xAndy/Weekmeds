@@ -18,7 +18,7 @@ struct Xcode___Weekmeds: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().preferredColorScheme(isDarkMode ? .dark:.light)
+            ContentView().preferredColorScheme(isDarkMode ? .dark: .light)
         }
     }
 }
